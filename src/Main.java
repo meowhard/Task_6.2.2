@@ -1,24 +1,26 @@
-import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
-import java.io.InputStream;
 import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
         ByteArrayInputStream bais = new ByteArrayInputStream("1 2 3 4 5 6".getBytes());
         System.setIn(bais);
-        Scanner s = new Scanner(System.in);
 
-        System.out.println(removeUnevenNumbersAndReverseSequence(s));
+        Scanner s = new Scanner(System.in);
+        processing(s);
     }
 
-    public static String removeUnevenNumbersAndReverseSequence(Scanner scanner) {
-        String[] strList = scanner.nextLine().split(" ");
-        ArrayDeque<Integer> deque = new ArrayDeque<>();
-
-        for(String s : strList) {
-            deque.add(Integer.valueOf(s));
+    static void processing(Scanner s) {
+        Sequence sequence = new Sequence(s);
+        String[] sequenceArray = sequence.getSequenceAsStringArray();
+        if (sequenceArray != null) {
+            List<Integer> sequenceAsList = ListSequence.getSequenceAsListWithoutUnevenPositions(sequenceArray);
+            List<Integer> reversedSequence = ReversedSequence.reverse(sequenceAsList);
+            SystemOutResultWriter.write(reversedSequence);
+        } else {
+            System.out.println("");
         }
-        return deque.toString();
     }
 }
+
+
